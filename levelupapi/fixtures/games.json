@@ -1,0 +1,26 @@
+[
+    {
+        "model": "levelupapi.game",
+        "pk": 1,
+        "fields": {
+            "name": "Candy Land",
+            "game_type": 1,
+            "description": "world of candy",
+            "number_of_players": 5,
+            "gamer": 1,
+            "maker": "Hasbro"
+        }
+    },
+    {
+        "model": "levelupapi.game",
+        "pk": 2,
+        "fields": {
+            "name": "Dungeons and Dragons",
+            "game_type": 2,
+            "description": "Magical Role Playing",
+            "number_of_players": 5,
+            "gamer": 1,
+            "maker": "Gary Gygax"
+        }
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "host": 1,
+            "game": 2,
+            "date": "2021-08-09",
+            "time": "16:00",
+            "description": "Come dress up with us",
+            "title": "D&D partay"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "host": 1,
+            "game": 1,
+            "date": "2021-08-10",
+            "time": "16:00",
+            "description": "Come get candy",
+            "title": "Candy Landy"
+        }
+    }
+]
