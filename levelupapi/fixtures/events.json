@@ -22,5 +22,43 @@
             "description": "Come get candy",
             "title": "Candy Landy"
         }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 3,
+        "fields": {
+            "host": 1,
+            "game": 1,
+            "date": "2021-10-04",
+            "time": "12:00",
+            "description": "Welcome To at lunch",
+            "title": "Hi there!"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 4,
+        "fields": {
+            "host": 1,
+            "game": 2,
+            "date": "2021-08-14",
+            "time": "19:30",
+            "description": "Friday night Settlers and drinks",
+            "title": "IDK"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 5,
+        "fields": {
+            "host": 1,
+            "game": 3,
+            "date": "2021-04-20",
+            "time": "8:00",
+            "description": "Vale of the Frost King campaign. All weekend.",
+            "title": "What is this?"
+        }
     }
 ]
+
+
