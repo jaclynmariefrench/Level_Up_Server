@@ -108,11 +108,6 @@ class EventView(ViewSet):
             events, many=True, context={'request': request})
         return Response(serializer.data)
 
-    class Meta:
-        model = Event
-        fields = ('id', 'host', 'game', 
-                  'date', 'time', 'description', 'title')
-
 
 class EventUserSerializer(serializers.ModelSerializer):
     """JSON serializer for event host's related Django user"""
@@ -135,9 +130,11 @@ class EventSerializer(serializers.ModelSerializer):
     host = EventGamerSerializer(many=False)
     game = GameSerializer(many=False)
 
-
+    class Meta:
+            model = Event
+            fields = ['id', 'title', 'host', 'game', 'time', 'date', 'description']
 class GameSerializer(serializers.ModelSerializer):
     """JSON serializer for games"""
     class Meta:
         model = Game
-        fields = ('id', 'name', 'maker', 'number_of_players', 'description')
+        fields = ('id', 'name', 'description', 'number_of_players', 'maker')
