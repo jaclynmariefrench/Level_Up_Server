@@ -28,7 +28,8 @@ class GameView(ViewSet):
         game = Game()
         game.name = request.data["name"]
         game.description = request.data["description"]
-        game.number_of_players = request.data["numberOfPlayers"]
+        game.number_of_players = request.data["number_of_players"]
+        game.skill_level = request.data["skill_level"]
         game.gamer = gamer
         game.maker = request.data["maker"]
 
@@ -87,6 +88,7 @@ class GameView(ViewSet):
         game.name = request.data["name"]
         game.description = request.data["description"]
         game.number_of_players = request.data["numberOfPlayers"]
+        game.skill_level = request.date["skill_level"]
         game.gamer = gamer
         game.maker = request.data["maker"]
 
@@ -151,6 +153,6 @@ class GameSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Game
-        fields = ('id', 'name', 'game_type', 'description', 'number_of_players', 'gamer', 'maker')
+        fields = ('id', 'name', 'game_type', 'description', 'number_of_players', 'gamer', 'maker', 'skill_level')
         depth = 1
 
