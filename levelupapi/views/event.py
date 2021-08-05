@@ -49,7 +49,7 @@ class EventView(ViewSet):
             event = Event.objects.get(pk=pk)
             serializer = EventSerializer(event, context={'request': request})
             return Response(serializer.data)
-        except Exception:
+        except Exception as ex:
             return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):

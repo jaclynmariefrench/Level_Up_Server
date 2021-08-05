@@ -94,10 +94,16 @@ class GameView(ViewSet):
         game.game_type = game_type
         game.save()
 
+        # CODE FROM HANNAH vvvvv
+        serializer = GameSerializer(game, context= {'request': request})
+
         # 204 status code means everything worked but the
         # server is not sending back any data in the response
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        # CODE FROM CHAPTER vvvv
+        # return Response({}, status=status.HTTP_204_NO_CONTENT)
 
+        # CODE FROM HANNAH vvvvvv
+        return Response(serializer.data)
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a single game
 
