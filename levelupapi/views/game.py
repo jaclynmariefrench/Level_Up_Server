@@ -81,31 +81,21 @@ class GameView(ViewSet):
         """
         gamer = Gamer.objects.get(user=request.auth.user)
 
-        # Do mostly the same thing as POST, but instead of
-        # creating a new instance of Game, get the game record
-        # from the database whose primary key is `pk`
         game = Game.objects.get(pk=pk)
         game.name = request.data["name"]
         game.description = request.data["description"]
-        game.number_of_players = request.data["numberOfPlayers"]
-        game.skill_level = request.date["skill_level"]
+        game.number_of_players = request.data["number_of_players"]
+        game.skill_level = request.data["skill_level"]
         game.gamer = gamer
         game.maker = request.data["maker"]
 
-        game_type = GameType.objects.get(pk=request.data["gameTypeId"])
+        game_type = GameType.objects.get(pk=request.data["game_type"])
         game.game_type = game_type
         game.save()
 
-        # CODE FROM HANNAH vvvvv
-        serializer = GameSerializer(game, context= {'request': request})
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        # 204 status code means everything worked but the
-        # server is not sending back any data in the response
-        # CODE FROM CHAPTER vvvv
-        # return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        # CODE FROM HANNAH vvvvvv
-        return Response(serializer.data)
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a single game
 
