@@ -8,6 +8,9 @@ from levelupapi.models import GameType
 
 class GameTypeView(ViewSet):
     """Level up game types"""
+    
+    # NEED TO CREATE, UPDATE AND DELETE
+
 
     def retrieve(self, request, pk=None):
         """Handle GET requests for single game type
