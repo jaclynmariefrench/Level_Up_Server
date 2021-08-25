@@ -8,7 +8,7 @@
   <body>
     <h1>User Events</h1>
 
-    {% for user in userevent_list %}
+    {% for user in user_with_events %}
         <h2>{{ user.full_name }}</h2>
         <ol>
             {% for event in user.events %}

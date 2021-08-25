@@ -1,64 +1,51 @@
-"""Module for generating games by user report"""
+from levelupapi.models.event import Event
 import sqlite3
 from django.shortcuts import render
-from levelupapi.models import Event
+from levelupapi.models import Game
 from levelupreports.views import Connection
+from datetime import datetime
 
-
-def userevent_list(request):
-    """Function to build an HTML report of events by user"""
+def events_by_user(request):
     if request.method == 'GET':
-        # Connect to project database
         with sqlite3.connect(Connection.db_path) as conn:
             conn.row_factory = sqlite3.Row
             db_cursor = conn.cursor()
 
-            # Query for all games, with related user info.
-            db_cursor.execute("""
-                SELECT
-                    e.id,
-                    e.date,
-                    e.time,
-                    e.description,
-                    e.title,
-                    g.name,
-                    u.first_name || ' ' || u.last_name AS full_name
-                FROM
-                    levelupapi_event e
-                JOIN
-                    levelupapi_gamer gr ON g.gamer_id = gr.id
-                JOIN
-                    auth_user u ON gr.user_id = u.id
-                JOIN
-                    levelupapi_game g ON g.id = e.game_id
-            """)
+            db_cursor.execute(
+                """
+                select g.id as user_id,
+                u.first_name || " " || u.last_name as full_name,
+                e.id,
+                e.date,
+                e.time,
+                e.title,
+                e.description,
+                e.host_id,
+                gm.name as game_name
+                from levelupapi_event e
+                join levelupapi_eventgamer eg
+                on e.id = eg.event_id
+                join levelupapi_gamer g
+                on g.id = eg.gamer_id
+                join auth_user u
+                on u.id = g.user_id
+                join levelupapi_game gm
+                on e.game_id = gm.id
+                """
+            )
 
             dataset = db_cursor.fetchall()
-
-            #
-            #   {
-            #     1: {
-            #         "gamer_id": 1,
-            #         "full_name": "Molly Ringwald",
-            #         "events": [
-            #             {
-            #                 "id": 5,
-            #                 "date": "2020-12-23",
-            #                 "time": "19:00",
-            #                 "game_name": "Fortress America"
-            #             }
-            #         ]
-            #     }
-            # }
 
             events_by_user = {}
 
             for row in dataset:
-                # Crete a Game instance and set its properties
+                # Crete a Event instance and set its properties
                 event = Event()
-                event.title = row["title"]
                 event.date = row["date"]
                 event.time = row["time"]
+                event.title = row["title"]
+                event.host_id = row["host_id"]
+                event.game_name = row["game_name"]
                 event.description = row["description"]
 
                 # Store the user's id
@@ -77,13 +64,8 @@ def userevent_list(request):
                     events_by_user[uid]["full_name"] = row["full_name"]
                     events_by_user[uid]["events"] = [event]
 
-        # Get only the values from the dictionary and create a list from them
-        list_of_users_with_events = events_by_user.values()
 
-        # Specify the Django template and provide data context
-        template = 'users/list_with_events.html'
-        context = {
-            'userevent_list': list_of_users_with_events
-        }
-
-        return render(request, template, context)
+    events = events_by_user.values()
+    template = "users/list_with_events.html"
+    context = { "user_with_events": events }
+    return render(request, template, context)

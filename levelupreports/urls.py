@@ -1,8 +1,9 @@
+from levelupreports.views.users.eventsbyuser import events_by_user
 from django.urls import path
 from .views import usergame_list
-from .views import userevent_list
+from .views import events_by_user
 
 urlpatterns = [
     path('reports/usergames', usergame_list),
-    path('reports/userevents', userevent_list),
+    path('reports/userevents', events_by_user),
 ]
