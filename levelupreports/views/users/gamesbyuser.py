@@ -17,7 +17,7 @@ def usergame_list(request):
             db_cursor.execute("""
                 SELECT
                     g.id,
-                    g.title,
+                    g.name,
                     g.maker,
                     g.game_type_id,
                     g.number_of_players,
@@ -59,7 +59,7 @@ def usergame_list(request):
             for row in dataset:
                 # Crete a Game instance and set its properties
                 game = Game()
-                game.title = row["title"]
+                game.name = row["name"]
                 game.maker = row["maker"]
                 game.skill_level = row["skill_level"]
                 game.number_of_players = row["number_of_players"]
